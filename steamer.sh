@@ -57,7 +57,7 @@ if [ -n "$XDG_SESSION_TYPE" ]; then
     case "$XDG_SESSION_TYPE" in
         "x11")
             if ! is_in_var "$steam_options" "$comp_opt" ; then
-                steam_options="${steam_options} ${comp_opt}"
+                steam_options="${comp_opt} ${steam_options}"
             fi
             ;;
     esac
