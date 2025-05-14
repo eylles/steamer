@@ -1,17 +1,34 @@
 .POSIX:
-PREFIX = ${HOME}/.local
-.PHONY: install uninstall
 NAME = steamer
+DESK = $(NAME).desktop
+PREFIX = ${HOME}/.local
+BIN_LOC = $(DESTDIR)$(PREFIX)/bin
+DESK_LOC = $(DESTDIR)$(PREFIX)/share/applications
+.PHONY: install install-desktop install-all uninstall all
+
+all: $(NAME) $(DESK)
 
 $(NAME):
 	cp steamer.sh $(NAME)
 
+$(DESK):
+	sed "s|@placeholder@|$(NAME)|" steamer.desktop.in > $(DESK)
+
 install: $(NAME)
 	chmod 755 $(NAME)
-	mkdir -p ${DESTDIR}${PREFIX}/bin
-	cp -vf $(NAME) ${DESTDIR}${PREFIX}/bin
+	mkdir -p $(BIN_LOC)
+	cp -vf $(NAME) $(BIN_LOC)/
+
+install-desktop:
+	mkdir -p $(DESK_LOC)
+	cp $(DESK) $(DESK_LOC)/
+
+install-all: install install-desktop
+
 uninstall:
-	rm -vf ${DESTDIR}${PREFIX}/bin/$(NAME)
+	rm -vf $(BIN_LOC)/$(NAME)
+	rm -vf $(DESK_LOC)/$(DESK)
+
 clean:
-	rm -vrf $(NAME)
+	rm -vf $(NAME) $(DESK)
 
