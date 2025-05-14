@@ -36,6 +36,20 @@ fi
 
 myname="${0##*/}"
 
+# Usage: is_in_var "string" "str"
+#   Returns exit code 0 - true or 1 - false
+is_in_var () {
+    retval=1
+    substr="$2"
+    strvar="$1"
+    case "$strvar" in
+        *"$substr"*)
+            retval=0
+            ;;
+    esac
+    return "$retval"
+}
+
 # always set this option for x11
 comp_opt="-system-composer"
 # hopefully your session is not malformed and contains this env var
@@ -45,7 +59,7 @@ if [ -n "$XDG_SESSION_TYPE" ]; then
             if [ -z "$steam_options" ]; then
                 steam_options="${comp_opt}"
             else
-                if ! echo "$steam_options" | grep -q "$comp_opt" ; then
+                if ! is_in_var "$steam_options" "$comp_opt" ; then
                     steam_options="${steam_options} ${comp_opt}"
                 fi
             fi
