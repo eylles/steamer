@@ -45,7 +45,7 @@ if [ -n "$XDG_SESSION_TYPE" ]; then
             if [ -z "$steam_options" ]; then
                 steam_options="${comp_opt}"
             else
-                if echo "$steam_options" | grep -q "$comp_opt" ; then
+                if ! echo "$steam_options" | grep -q "$comp_opt" ; then
                     steam_options="${steam_options} ${comp_opt}"
                 fi
             fi
