@@ -53,6 +53,7 @@ if [ -n "$XDG_SESSION_TYPE" ]; then
     esac
 fi
 
-date +"[%F %T] [${myname}] starting steam with options: ${steam_options}" >> "$logfile"
+msg="[${myname}] starting steam with options: ${steam_options}"
+date +"[%F %T] ${msg}" >> "$logfile"
 
 $steam_bin "$steam_options" "$@"
