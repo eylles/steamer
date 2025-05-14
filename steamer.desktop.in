@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Steam
+Exec=@placeholder@ %U
+Icon=steam
+Categories=FileTransfer;Game;Network;
+MimeType=x-scheme-handler/steam;x-scheme-handler/steamlink;
+Terminal=false
+Type=Application
+Keywords=games;steam;valve;
+PrefersNonDefaultGPU=true
+X-KDE-RunOnDiscreteGpu=true
