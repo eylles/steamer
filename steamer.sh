@@ -85,7 +85,7 @@ fi
 # client really, really does not like extra trailing whitespace...
 steam_options=$(trim_all "$steam_options")
 
-msg="[${myname}] starting steam with options: ${steam_options}"
+msg="[${myname}] starting steam with options: '${steam_options}'"
 date +"[%F %T] ${msg}" >> "$logfile"
 
 $steam_bin "$steam_options" "$@"
