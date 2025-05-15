@@ -50,6 +50,24 @@ is_in_var () {
     return "$retval"
 }
 
+# Usage: trim_all "   example   string    "
+trim_all() {
+    # Disable globbing to make the word-splitting below safe.
+    set -f
+
+    # Set the argument list to the word-splitted string.
+    # This removes all leading/trailing white-space and reduces
+    # all instances of multiple spaces to a single ("  " -> " ").
+    # shellcheck disable=SC2086,SC2048
+    set -- $*
+
+    # Print the argument list as a string.
+    printf '%s\n' "$*"
+
+    # Re-enable globbing.
+    set +f
+}
+
 # always set this option for x11
 comp_opt="-system-composer"
 # hopefully your session is not malformed and contains this env var
@@ -62,6 +80,10 @@ if [ -n "$XDG_SESSION_TYPE" ]; then
             ;;
     esac
 fi
+
+# ensure the options string is not malformed with extra spaces, as the steam
+# client really, really does not like extra trailing whitespace...
+steam_options=$(trim_all "$steam_options")
 
 msg="[${myname}] starting steam with options: ${steam_options}"
 date +"[%F %T] ${msg}" >> "$logfile"
