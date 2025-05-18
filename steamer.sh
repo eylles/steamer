@@ -6,6 +6,8 @@ steam_bin="/usr/bin/steam"
 # options to pass onto the steam client
 steam_options=""
 
+no_logs=""
+
 dir_name="steamer"
 config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/${dir_name}"
 config_file="${config_dir}/configrc"
@@ -31,6 +33,10 @@ steam_bin="${steam_bin}"
 
 # steam options
 steam_options="${steam_options}"
+
+# disable logs steamer, set this value to anything to prevent steamer from
+# wiriting logs.
+no_logs=""
 __HEREDOC__
 fi
 
@@ -85,8 +91,10 @@ fi
 # client really, really does not like extra trailing whitespace...
 steam_options=$(trim_all "$steam_options")
 
-msg="[${myname}] starting steam with options: '${steam_options}'"
-date +"[%F %T] ${msg}" >> "$logfile"
+if [ -z "$no_logs" ]; then
+    msg="[${myname}] starting steam with options: '${steam_options}'"
+    date +"[%F %T] ${msg}" >> "$logfile"
+fi
 
 # we want word splitting here
 # shellcheck disable=SC2086
