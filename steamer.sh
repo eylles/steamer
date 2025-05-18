@@ -91,6 +91,32 @@ fi
 # client really, really does not like extra trailing whitespace...
 steam_options=$(trim_all "$steam_options")
 
+case "$1" in
+    help|-h|--help)
+        printf '%s\n' \
+            "${myname}: a steam wrapper to add client parameters"
+        printf '%s\n' "Usage:"
+        printf '\t%s\n' \
+            "${myname} -h | [ steam://link ]"
+        printf '%s\n' "Options:"
+        printf '%s\t%s\n' \
+            "    -h, --help" \
+            "Show this help message."
+        printf '%s\n' "Configuration:"
+        printf '    %s\n' "The configuration is located at ${config_file}"
+        printf '    %s\n' "when this script is ran and no config file exits"
+        printf '    %s\n' "a default one will be created."
+        printf '    %s\n' "Edit the config file to add your steam client launch"
+        printf '    %s\n' "options and parameters, you can find a list of the"
+        printf '    %s\n' "supported options at:"
+        printf '    %s\n\n' "    https://gist.github.com/davispuh/6600880"
+        printf '    %s\n' "By default steamer will try to detect if you are in"
+        printf '    %s\n' "x11 and add the '-system-composer' option if not in"
+        printf '    %s\n' "your launch options."
+        exit 0
+        ;;
+esac
+
 if [ -z "$no_logs" ]; then
     msg="[${myname}] starting steam with options: '${steam_options}'"
     date +"[%F %T] ${msg}" >> "$logfile"
