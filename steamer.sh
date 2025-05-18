@@ -90,4 +90,4 @@ date +"[%F %T] ${msg}" >> "$logfile"
 
 # we want word splitting here
 # shellcheck disable=SC2086
-$steam_bin $steam_options "$@"
+exec $steam_bin $steam_options "$@"
