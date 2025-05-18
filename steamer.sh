@@ -88,4 +88,6 @@ steam_options=$(trim_all "$steam_options")
 msg="[${myname}] starting steam with options: '${steam_options}'"
 date +"[%F %T] ${msg}" >> "$logfile"
 
-$steam_bin "$steam_options" "$@"
+# we want word splitting here
+# shellcheck disable=SC2086
+$steam_bin $steam_options "$@"
